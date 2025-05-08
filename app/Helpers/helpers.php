@@ -97,7 +97,7 @@ if (!function_exists('blind_cv_template')) {
         $footer = view('pdfs.components.footer')->render();
 
         return Browsershot::html($html)
-            // ->setIncludePath('$PATH:/usr/bin')
+            ->setIncludePath('$PATH:/usr/bin')
             // ->setIncludePath('$PATH:/var/www/.nvm/versions/node/22/bin')
             ->format('A4')
             ->margins(25, 10, 20, 10)
