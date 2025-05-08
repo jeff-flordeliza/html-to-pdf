@@ -98,6 +98,7 @@ if (!function_exists('blind_cv_template')) {
 
         return Browsershot::html($html)
             ->setIncludePath('$PATH:/usr/bin')
+            ->timeout(120)
             // ->setIncludePath('$PATH:/var/www/.nvm/versions/node/22/bin')
             ->format('A4')
             ->margins(25, 10, 20, 10)
