@@ -94,18 +94,22 @@
     <div class="data mt-5">
       <p style="font-size:18px;font-weight:bold;" class="uppercase">{{ $professional_experience->company }}</p>
       <p style="font-size:18px;font-weight:bold;" class="uppercase">{{ $professional_experience->position }}</p>
-      <p style="font-size:18px;font-weight:bold;">{{ $professional_experience->month_year_start->format('F Y') }} - {{ $professional_experience->month_year_end->format('F Y') }}</p>
+      <p style="font-size:18px;font-weight:bold;">{{ $professional_experience->month_year_range }}</p>
 
-      <p style="font-size:16px;font-style: italic;margin-top:10px;">Duties and responsibilities:</p>
-      <ol>
-        @foreach($professional_experience->duties_and_responsibilities as $duties_and_responsibility)
-        <!-- <p>{{ $duties_and_responsibility->duty_and_responsibility }}</p> -->
+      @if(isset($professional_experience->duties_and_responsibilities))
+        @if(count($professional_experience->duties_and_responsibilities) > 0)
+          <p style="font-size:16px;font-style: italic;margin-top:10px;">Duties and responsibilities:</p>
+          <ol>
+            @foreach($professional_experience->duties_and_responsibilities as $duties_and_responsibility)
+            <!-- <p>{{ $duties_and_responsibility->duty_and_responsibility }}</p> -->
 
-        <li class="pl-5"> • <span class="ml-5">{{ $duties_and_responsibility->duty_and_responsibility }}</span></li>
+            <li class="pl-5"> • <span class="ml-5">{{ $duties_and_responsibility->duty_and_responsibility }}</span></li>
 
-        <!-- <h6 class="mb-1"> • {{ $duties_and_responsibility->duty_and_responsibility }}</h6> -->
-        @endforeach
-      </ol>
+            <!-- <h6 class="mb-1"> • {{ $duties_and_responsibility->duty_and_responsibility }}</h6> -->
+            @endforeach
+          </ol>
+        @endif
+      @endif
     </div>
 
     @endforeach
