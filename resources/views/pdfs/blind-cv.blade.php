@@ -44,40 +44,42 @@
   </div>
   @endif
 
-  @if(count($applicant->training_and_certifications) > 0)
-  <div class="training-and-certificates" style="padding-top: 20px;">
-    <h1 style="color:#9999ff;font-size:20px;font-weight:bold;text-transform:uppercase;border-bottom:3px solid #9999ff;margin-bottom:10px;">TRAININGS AND CERTIFICATIONS</h1>
-    <!-- <ol>
-      @foreach ($applicant->training_and_certifications as $training_and_certification)
-      <li class="pl-5"><h6> • <span class="ml-5">{{ $training_and_certification->training_and_certifications }}</span></h6></li>
-      @endforeach
-      
-    </ol> -->
-    <table class="w-full whitespace-nowrap">
-      <thead class="ltr:text-left rtl:text-right bg-slate-100 text-slate-500 dark:text-zink-200 dark:bg-zink-600">
-        <tr>
-          <th hidden class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"></th>
-        </tr>
-      </thead>
-      <tbody>
-        @forelse ($applicant->training_and_certifications as $training_and_certification)
-        <tr>
-          <td class="px-3.5 py-2.5 first:pl-5 last:pr-5">
-            <div class="flex items-center gap-1">
-              <div class="grow">
-                <h6 class="mb-1"> • {{ $training_and_certification->training_and_certifications }}</h6>
+  @if(isset($applicant->training_and_certifications))
+    @if(count($applicant->training_and_certifications) > 0)
+    <div class="training-and-certificates" style="padding-top: 20px;">
+      <h1 style="color:#9999ff;font-size:20px;font-weight:bold;text-transform:uppercase;border-bottom:3px solid #9999ff;margin-bottom:10px;">TRAININGS AND CERTIFICATIONS</h1>
+      <!-- <ol>
+        @foreach ($applicant->training_and_certifications as $training_and_certification)
+        <li class="pl-5"><h6> • <span class="ml-5">{{ $training_and_certification->training_and_certifications }}</span></h6></li>
+        @endforeach
+        
+      </ol> -->
+      <table class="w-full whitespace-nowrap">
+        <thead class="ltr:text-left rtl:text-right bg-slate-100 text-slate-500 dark:text-zink-200 dark:bg-zink-600">
+          <tr>
+            <th hidden class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @forelse ($applicant->training_and_certifications as $training_and_certification)
+          <tr>
+            <td class="px-3.5 py-2.5 first:pl-5 last:pr-5">
+              <div class="flex items-center gap-1">
+                <div class="grow">
+                  <h6 class="mb-1"> • {{ $training_and_certification->training_and_certifications }}</h6>
+                </div>
               </div>
-            </div>
-          </td>
-        </tr>
-        @empty
-        <tr>
-          <td colspan="4">No Skills Provided.</td>
-        </tr>
-        @endforelse
-      </tbody>
-    </table>
-  </div>
+            </td>
+          </tr>
+          @empty
+          <tr>
+            <td colspan="4">No Skills Provided.</td>
+          </tr>
+          @endforelse
+        </tbody>
+      </table>
+    </div>
+    @endif
   @endif
 
   <div class="education" style="padding-top: 20px;">
@@ -87,34 +89,35 @@
     <p style="font-size:16px;font-weight:bold;">{{ $applicant->educational_background->course }}</p>
   </div>
 
-  @if(count($applicant->professional_experiences) > 0)
-  <div class="professional-experience" style="padding-top: 20px;">
-    <h1 style="color:#9999ff;font-size:20px;font-weight:bold;text-transform:uppercase;border-bottom:3px solid #9999ff;margin-bottom:10px;">Professional Experience</h1>
-    @foreach ($applicant->professional_experiences as $professional_experience)
-    <div class="data mt-5">
-      <p style="font-size:18px;font-weight:bold;" class="uppercase">{{ $professional_experience->company }}</p>
-      <p style="font-size:18px;font-weight:bold;" class="uppercase">{{ $professional_experience->position }}</p>
-      <p style="font-size:18px;font-weight:bold;">{{ $professional_experience->month_year_range }}</p>
+  @if(isset($applicant->professional_experiences))
+    @if(count($applicant->professional_experiences) > 0)
+    <div class="professional-experience" style="padding-top: 20px;">
+      <h1 style="color:#9999ff;font-size:20px;font-weight:bold;text-transform:uppercase;border-bottom:3px solid #9999ff;margin-bottom:10px;">Professional Experience</h1>
+      @foreach ($applicant->professional_experiences as $professional_experience)
+      <div class="data mt-5">
+        <p style="font-size:18px;font-weight:bold;" class="uppercase">{{ $professional_experience->company }}</p>
+        <p style="font-size:18px;font-weight:bold;" class="uppercase">{{ $professional_experience->position }}</p>
+        <p style="font-size:18px;font-weight:bold;">{{ $professional_experience->month_year_range }}</p>
 
-      @if(isset($professional_experience->duties_and_responsibilities))
+        @if(isset($professional_experience->duties_and_responsibilities))
         @if(count($professional_experience->duties_and_responsibilities) > 0)
-          <p style="font-size:16px;font-style: italic;margin-top:10px;">Duties and responsibilities:</p>
-          <ol>
-            @foreach($professional_experience->duties_and_responsibilities as $duties_and_responsibility)
-            <!-- <p>{{ $duties_and_responsibility->duty_and_responsibility }}</p> -->
+        <p style="font-size:16px;font-style: italic;margin-top:10px;">Duties and responsibilities:</p>
+        <ol>
+          @foreach($professional_experience->duties_and_responsibilities as $duties_and_responsibility)
+          <!-- <p>{{ $duties_and_responsibility->duty_and_responsibility }}</p> -->
 
-            <li class="pl-5"> • <span class="ml-5">{{ $duties_and_responsibility->duty_and_responsibility }}</span></li>
+          <li class="pl-5"> • <span class="ml-5">{{ $duties_and_responsibility->duty_and_responsibility }}</span></li>
 
-            <!-- <h6 class="mb-1"> • {{ $duties_and_responsibility->duty_and_responsibility }}</h6> -->
-            @endforeach
-          </ol>
+          <!-- <h6 class="mb-1"> • {{ $duties_and_responsibility->duty_and_responsibility }}</h6> -->
+          @endforeach
+        </ol>
         @endif
-      @endif
+        @endif
+      </div>
+
+      @endforeach
     </div>
-
-    @endforeach
-  </div>
+    @endif
   @endif
-
   <div class="page-break"></div>
 </x-pdf-layout>
