@@ -45,6 +45,7 @@ if (!function_exists('test_pdf')) {
             if (!File::exists("$storage_path/$filename")) {
                 Browsershot::url('https://www.google.com')
                     ->setIncludePath('$PATH:/usr/bin')
+                    ->setChromePath("/home/forge/.cache/puppeteer/chrome/linux-137.0.7151.55/chrome-linux64/chrome")//digital ocean
                     ->noSandbox()
                     ->format('A4')
                     ->save("$storage_path/$filename");
@@ -98,6 +99,7 @@ if (!function_exists('blind_cv_template')) {
 
         return Browsershot::html($html)
             ->setIncludePath('$PATH:/usr/bin')
+            ->setChromePath("/home/forge/.cache/puppeteer/chrome/linux-137.0.7151.55/chrome-linux64/chrome")//digital ocean
             ->noSandbox()
             // ->timeout(300)
             // ->setIncludePath('$PATH:/var/www/.nvm/versions/node/22/bin')
