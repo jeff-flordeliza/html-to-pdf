@@ -45,7 +45,7 @@ if (!function_exists('test_pdf')) {
             if (!File::exists("$storage_path/$filename")) {
                 Browsershot::url('https://www.google.com')
                     ->setIncludePath('$PATH:/usr/bin')
-                    ->setChromePath("/home/forge/.cache/puppeteer/chrome/linux-137.0.7151.55/chrome-linux64/chrome")//digital ocean
+                    ->setChromePath("/home/forge/.cache/puppeteer/chrome/linux-137.0.7151.55/chrome-linux64/chrome") //digital ocean
                     ->noSandbox()
                     ->format('A4')
                     ->save("$storage_path/$filename");
@@ -74,6 +74,7 @@ if (!function_exists('generate_pdf')) {
 
             if (!File::exists("$storage_path/$filename")) {
                 $pdf = blind_cv_template(request());
+                // $pdf = local_blind_cv_template(request());
                 $pdf->save("$storage_path/$filename");
             }
             return response()->download("$storage_path/$filename");
@@ -103,6 +104,32 @@ if (!function_exists('blind_cv_template')) {
             ->noSandbox()
             // ->timeout(300)
             // ->setIncludePath('$PATH:/var/www/.nvm/versions/node/22/bin')
+            ->format('A4')
+            ->margins(25, 10, 20, 10)
+            ->showBrowserHeaderAndFooter()
+            ->waitUntilNetworkIdle()
+            ->writeOptionsToFile() // This is the method you need to call
+            ->headerHtml($header)
+            ->footerHtml($footer);
+    }
+};
+
+if (!function_exists('local_blind_cv_template')) {
+    function local_blind_cv_template(Request $request)
+    {
+        $applicant = json_decode(json_encode($request->all()));
+        $imagePath = public_path('assets/images/logo.png');
+        $imageType = pathinfo($imagePath, PATHINFO_EXTENSION);
+        $imageData = file_get_contents($imagePath);
+        $logo = 'data:image/' . $imageType . ';base64,' . base64_encode($imageData);
+
+        $html = view('pdfs.blind-cv', compact('applicant', 'logo'))->render();
+        $header = view('pdfs.components.header')->render();
+        $footer = view('pdfs.components.footer')->render();
+
+        return Browsershot::html($html)
+            ->setIncludePath('$PATH:/usr/bin')
+            ->noSandbox()
             ->format('A4')
             ->margins(25, 10, 20, 10)
             ->showBrowserHeaderAndFooter()
