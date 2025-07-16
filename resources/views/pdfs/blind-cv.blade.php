@@ -1,7 +1,7 @@
 <x-pdf-layout>
 
   <div class="name" style="font-size: 30px;color:#002060;font-weight:bold;text-transform:uppercase;margin: 10px 0;">
-    {{ $applicant->first_name }} {{ $applicant->last_name }}
+    {{ $applicant->first_name . ' - ' . $applicant->last_name }}
   </div>
 
   <div class="panoptik-candidate-match-analysis" style="padding-top: 20px; background-color:#e7e6e6;">
